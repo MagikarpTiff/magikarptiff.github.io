@@ -5,6 +5,57 @@
   <title>Te Amo ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    #secretMessage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  color: #ff69b4;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px 40px;
+  border-radius: 15px;
+  font-size: 2em;
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 10px #ff69b4;
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: 1000;
+  pointer-events: none;
+}
+#secretMessage.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#surpriseBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ff1493;
+  color: white;
+  border: none;
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border-radius: 30px;
+  box-shadow: 0 0 10px #ff69b4;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.floating-heart {
+  position: fixed;
+  top: -30px;
+  font-size: 24px;
+  animation: floatDown linear forwards;
+}
+
+@keyframes floatDown {
+  to {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
     html, body {
       margin: 0;
       padding: 0;
@@ -49,6 +100,34 @@
     }
   </style>
 </head>
+<!-- Botón sorpresa -->
+<button id="surpriseBtn">💌 Haz clic aquí</button>
+
+<!-- Mensaje secreto -->
+<div id="secretMessage">Siempre serás mi persona favorita 💘</div>
+
+<script>
+  // Mostrar mensaje secreto al hacer clic en cualquier parte
+  document.body.addEventListener("click", () => {
+    const msg = document.getElementById("secretMessage");
+    msg.classList.add("show");
+    setTimeout(() => msg.classList.remove("show"), 4000);
+  });
+
+  // Lluvia de confeti o sorpresa al hacer clic en el botón
+  document.getElementById("surpriseBtn").addEventListener("click", () => {
+    for (let i = 0; i < 50; i++) {
+      const heart = document.createElement("div");
+      heart.textContent = "💖";
+      heart.className = "floating-heart";
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.animationDuration = `${2 + Math.random() * 3}s`;
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+  });
+</script>
+
 <body>
 
 <audio autoplay loop playsinline>
